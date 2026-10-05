@@ -1,38 +1,65 @@
 # Plataforma Português · Rosana Ortega
 
-Código recuperado de la versión 16 de Sites.
+Web basada en la versión 16 recuperada de Sites, adaptada para Netlify. Las páginas e imágenes se publican como archivos estáticos; consultas, inscripciones y confirmación de correo se ejecutan en Netlify Functions. El diseño de la web se conserva.
 
-- Commit original: `bfb9d3a5405af9261b5133c6b5e43b56592d845c`.
-- Se conserva el contenido original de 24 archivos, incluidos imágenes y Worker compilado.
-- Se omiten `.openai/hosting.json` y `dist/.openai/hosting.json`: contienen metadatos internos de Sites. La copia local original conserva ambos.
+## Desplegar desde GitHub
 
-## Estructura
+1. En Netlify, importa `rortegarcia/plataforma-rosana` y selecciona la rama `main`.
+2. Deja el directorio base vacío. `netlify.toml` configura automáticamente:
+   - Build command: `npm run build`.
+   - Publish directory: `dist-netlify`.
+   - Functions directory: `netlify/functions`.
+   - Node.js: 22.
+3. En la configuración del proyecto, añade las variables indicadas abajo. Las variables deben incluir el alcance **Functions** (o todos los alcances). No las escribas en `netlify.toml` ni en `public/`.
+4. Despliega. Si modificas las variables después, crea un nuevo deploy para aplicarlas.
+5. Comprueba una consulta y una inscripción reales antes de dar la web por operativa.
 
-`public/` contiene páginas, estilos, scripts e imágenes. `server/worker.js` contiene los formularios y el envío de correo. `build.mjs` reúne los recursos en `dist/server/index.js`, un Worker compatible con Cloudflare.
+La web puede compilar sin las claves, pero los formularios responderán con servicio no disponible hasta que estén configuradas. Importar el repositorio en Netlify, configurar las claves y confirmar un despliegue correcto siguen siendo pasos necesarios; preparar este repositorio no los ejecuta.
 
-## Compilar fuera de Sites
+## Variables privadas y configuración
 
-Requiere Node.js. El script original espera un archivo local de configuración. Para compilar sin los metadatos internos:
+| Variable | Uso |
+| --- | --- |
+| `RESEND_API_KEY` | Obligatoria. Clave de Resend con permisos de envío y de consulta de correos enviados, porque la web comprueba su entrega. |
+| `REGISTRATION_SECRET` | Obligatoria. Secreto aleatorio de al menos 32 bytes para firmar los comprobantes de inscripción. |
+| `RESEND_FROM` | Remitente autorizado en Resend. Para producción utiliza una dirección de un dominio verificado. |
+| `CONTACT_EMAIL` | Correo donde recibes solicitudes. Predeterminado: `rortegarcia@gmail.com`. |
+| `PAYPAL_URL` | Enlace de pago. Predeterminado: `https://paypal.me/rosanaortega/30EUR`. Mantén coherencia con los 30 EUR anunciados en la web. |
+
+`.env.example` contiene nombres y valores de ejemplo, sin claves. Copia ese archivo a `.env` para uso local y rellena los valores. `.gitignore` excluye `.env` y sus variantes privadas. El archivo `.env` local preparado en Codex incluye un nuevo secreto de firma; la clave de Resend queda vacía. Los secretos de Sites no se pueden recuperar desde el repositorio ni se han exportado.
+
+Para generar un secreto independiente:
 
 ```sh
-mkdir -p .openai
-printf '%s\n' '{"d1":null,"r2":null}' > .openai/hosting.json
-node build.mjs
+node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
 ```
 
-No publique identificadores internos ni credenciales en este repositorio. Para volver a desplegar en Sites, utilice la configuración original de la copia local.
+Netlify no importa automáticamente el `.env` local durante un deploy desde GitHub. Añade/importa sus valores en la configuración de variables del proyecto de Netlify. No subas el archivo a GitHub. Marca las claves como secretas cuando la interfaz lo permita.
 
-## Alojamiento y dominio
+`CONTACT_EMAIL` configura el destino del servidor; los correos de contacto visibles en las páginas mantienen su contenido original. Cambiar `PAYPAL_URL` cambia el destino del pago, no los precios mostrados en las páginas.
 
-El dominio previsto es `rosanaortega.com`, registrado en DinaHosting. Solo se ha contratado el dominio. El repositorio no implica que la web esté desplegada ni que los DNS estén configurados.
+El remitente de ejemplo `onboarding@resend.dev` sirve para pruebas permitidas por Resend. Para producción verifica tu dominio en Resend y configura `RESEND_FROM`. Los registros de correo que indique Resend se añaden en DinaHosting.
 
-La web necesita un servidor compatible con su Worker para conservar `/api/inquiries`, `/api/registrations` y `/api/registration-status`. GitHub Pages u otro alojamiento puramente estático no ejecutan esas funciones.
+## Desarrollo y pruebas
 
-Opciones pendientes de elección:
+```sh
+npm ci
+npm test
+npm run build
+```
 
-1. Mantener el alojamiento actual en Sites y conectar el dominio mediante los registros DNS que Sites proporcione.
-2. Desplegar el Worker en un alojamiento independiente compatible y configurar el dominio con los registros de ese proveedor. Un alojamiento PHP convencional necesitaría adaptar el servidor.
+No hay dependencias de aplicación. Para probar estáticos y funciones juntos, utiliza Netlify CLI (`netlify dev`) con el `.env` local. Netlify CLI se instala por separado y no es una dependencia de producción.
 
-En un alojamiento independiente deben configurarse como secretos `RESEND_API_KEY` y `REGISTRATION_SECRET`; opcionalmente `RESEND_FROM`. Los secretos actuales de Sites no se exportan y no están en este repositorio. Antes de publicar, verifique el envío real de consultas e inscripciones, la confirmación de entrega y el paso posterior a PayPal.
+Las pruebas simulan Resend: comprueban las rutas, consentimiento, origen, firma del comprobante, correo entregado/rechazado, destino de correo y enlace de PayPal. No envían correos ni realizan pagos. La confirmación de entrega habilita PayPal; no acredita que se haya pagado.
 
-No cambie registros de correo MX, SPF, DKIM o DMARC al conectar la web. Los valores DNS del alojamiento deben obtenerse del proveedor elegido; no se han establecido todavía.
+El build publica exclusivamente `public/` en `dist-netlify/`. Rechaza archivos `.env` y enlaces simbólicos dentro de `public/`. Las claves solo se consultan desde el servidor. `build.mjs` es el constructor histórico de Sites; Netlify usa `scripts/build-netlify.mjs` y no necesita configuración interna de Sites ni el Worker compilado antiguo.
+
+## Dominio rosanaortega.com
+
+Después del primer deploy correcto, añade `rosanaortega.com` y, si lo deseas, `www.rosanaortega.com` en la gestión de dominios de Netlify. Utiliza los registros DNS exactos que muestre Netlify para tu proyecto y añádelos en DinaHosting. Espera la validación y el certificado HTTPS antes de cambiar el dominio principal. Conserva los registros MX, SPF, DKIM y DMARC existentes. No se han cambiado los DNS desde este repositorio.
+
+## Procedencia
+
+Versión original: 16. Commit original: `bfb9d3a5405af9261b5133c6b5e43b56592d845c`. La copia ZIP original permanece sin cambios. Los metadatos internos de Sites y sus credenciales se excluyen del repositorio público.
+
+Documentación oficial: [Netlify Functions](https://docs.netlify.com/build/functions/api/), [variables para funciones](https://docs.netlify.com/build/functions/environment-variables/).

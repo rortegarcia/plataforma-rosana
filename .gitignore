@@ -1,2 +1,10 @@
 .DS_Store
 *.tar.gz
+.env
+.env.*
+!.env.example
+.netlify/
+node_modules/
+dist-netlify/
+.openai/
+dist/
