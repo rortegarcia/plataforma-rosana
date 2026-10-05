@@ -1,0 +1,4 @@
+import fs from 'node:fs';import path from 'node:path';
+const assets={};const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.png':'image/png','.jpg':'image/jpeg','.svg':'image/svg+xml'};
+function walk(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const p=path.join(dir,e.name);if(e.isDirectory())walk(p);else assets['/'+path.relative('public',p).split(path.sep).join('/')]=[types[path.extname(p)]||'application/octet-stream',fs.readFileSync(p).toString('base64')];}}
+walk('public');fs.rmSync('dist',{recursive:true,force:true});fs.mkdirSync('dist/server',{recursive:true});fs.mkdirSync('dist/.openai',{recursive:true});fs.writeFileSync('dist/server/index.js','const assets='+JSON.stringify(assets)+';\n'+fs.readFileSync('server/worker.js','utf8'));fs.copyFileSync('.openai/hosting.json','dist/.openai/hosting.json');
