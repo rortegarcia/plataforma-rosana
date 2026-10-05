@@ -5,6 +5,9 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # The contact email and PayPal link are intentionally public (shown on the site),
+  # so they are not secrets. REGISTRATION_SECRET and RESEND_API_KEY stay scanned.
+  SECRETS_SCAN_OMIT_KEYS = "CONTACT_EMAIL,PAYPAL_URL"
 
 [functions]
   node_bundler = "esbuild"
