@@ -5,6 +5,9 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # Public contact/payment configuration may appear in pages and examples.
+  # RESEND_API_KEY and REGISTRATION_SECRET remain subject to secret scanning.
+  SECRETS_SCAN_OMIT_KEYS = "CONTACT_EMAIL,RESEND_FROM,PAYPAL_URL"
 
 [functions]
   node_bundler = "esbuild"
