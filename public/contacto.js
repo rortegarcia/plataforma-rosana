@@ -8,7 +8,7 @@ const pt = {
   equipment:'Aluguer de equipamentos',information:'Informações gerais',translation:'Tradução',interpretation:'Interpretação',classes:'Aulas de línguas',
   portugues:'Aulas de português',espanol:'Aulas de espanhol',taller:'Oficinas de leitura',materiales:'Produtos linguísticos',payment:'Consulta sobre pagamentos',
   message:'A sua mensagem',hint:'Conte-me o que precisa e, se necessário, indique as línguas, datas ou prazos.',
-  consent:'Aceito enviar os meus dados à Rosana Ortega através do Resend para responder a este pedido.',
+  consent:'Aceito enviar os meus dados à Rosana Ortega para responder a este pedido.',
   note:'Usarei o e-mail indicado para responder ao seu pedido. O envio deste formulário não implica uma inscrição ou pagamento.',
   submit:'Enviar pedido ↗',back:'Voltar ao início ↑'
 };
