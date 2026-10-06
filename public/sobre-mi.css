@@ -1,0 +1,37 @@
+.about-teaser{background:var(--paper);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.about-teaser .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center}
+.about-teaser h2{font-size:clamp(34px,4vw,52px)}
+.about-teaser p:not(.eyebrow){color:var(--gray);font-size:18px;line-height:1.8}
+.bio-hero{display:grid;grid-template-columns:1.6fr 1fr;gap:60px;align-items:center;padding-top:70px;padding-bottom:70px}
+.bio-hero h1{font-size:clamp(42px,5vw,68px);letter-spacing:-2px}
+.bio-hero .intro{max-width:720px}
+.bio-monogram{background:var(--paper);border-top:4px solid var(--red);padding:45px 35px}
+.bio-monogram strong{font:normal 110px/1 Georgia,serif;color:var(--red);display:block}
+.bio-monogram p{margin-bottom:0}
+.bio-nav{display:flex;flex-wrap:wrap;gap:12px 25px;padding-top:22px;padding-bottom:22px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:14px}
+.bio-nav a{border-bottom:1px solid var(--red)}
+.bio-section{padding-top:65px;padding-bottom:65px;border-bottom:1px solid var(--border)}
+.bio-section h2{font-size:clamp(32px,4vw,46px);margin-bottom:28px}
+.bio-section h3{font-size:25px;line-height:1.25;margin-bottom:12px;letter-spacing:-.4px}
+.bio-section>p{max-width:850px;line-height:1.85}
+.bio-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.bio-card{padding:28px;background:var(--paper);border-top:3px solid var(--red)}
+.bio-card p{margin-bottom:0;color:var(--gray);line-height:1.8}
+.bio-card .eyebrow{margin-bottom:15px;color:var(--red)}
+.bio-book{display:grid;grid-template-columns:1fr 1.5fr;gap:40px}
+.book-cover{background:var(--ink);color:white;padding:35px;min-height:320px;display:flex;flex-direction:column;justify-content:space-between}
+.book-cover h3{font-size:37px;color:white}
+.book-cover p{font-size:14px}
+.bio-timeline{list-style:none;padding:0;margin:0;display:grid;gap:0}
+.bio-timeline li{display:grid;grid-template-columns:150px 1fr;gap:28px;padding:27px 0;border-top:1px solid var(--border)}
+.bio-timeline time,.bio-date{color:var(--red);font-size:14px;font-weight:bold}
+.bio-timeline p{margin:10px 0 0;color:var(--gray);line-height:1.8}
+.bio-timeline a{text-decoration:underline;text-underline-offset:3px}
+.bio-clients details{border-top:1px solid var(--border);padding:20px 0}
+.bio-clients summary{cursor:pointer;font-family:Georgia,serif;font-size:26px}
+.client-names{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:15px 0 0}
+.client-names li{padding:7px 12px;border:1px solid var(--border);font-size:14px}
+.bio-contact{padding-top:60px;padding-bottom:60px}
+.bio-contact h2{font-size:40px;margin-bottom:25px}
+@media(max-width:1050px){header{flex-wrap:wrap;gap:18px}header nav{gap:18px;flex-wrap:wrap}}
+@media(max-width:720px){.about-teaser .wrap,.bio-hero,.bio-grid,.bio-book{grid-template-columns:1fr;gap:25px}.bio-hero{padding-top:40px;padding-bottom:40px}.bio-monogram{padding:25px}.bio-monogram strong{font-size:75px}.bio-timeline li{grid-template-columns:1fr;gap:10px}.bio-section{padding-top:40px;padding-bottom:40px}.bio-card{padding:23px}.bio-nav{gap:12px 20px}.book-cover{min-height:260px}}
