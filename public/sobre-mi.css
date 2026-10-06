@@ -35,3 +35,15 @@
 .bio-contact h2{font-size:40px;margin-bottom:25px}
 @media(max-width:1050px){header{flex-wrap:wrap;gap:18px}header nav{gap:18px;flex-wrap:wrap}}
 @media(max-width:720px){.about-teaser .wrap,.bio-hero,.bio-grid,.bio-book{grid-template-columns:1fr;gap:25px}.bio-hero{padding-top:40px;padding-bottom:40px}.bio-monogram{padding:25px}.bio-monogram strong{font-size:75px}.bio-timeline li{grid-template-columns:1fr;gap:10px}.bio-section{padding-top:40px;padding-bottom:40px}.bio-card{padding:23px}.bio-nav{gap:12px 20px}.book-cover{min-height:260px}}
+
+/* Featured introduction on the homepage. */
+.about-teaser{background:#b90820;color:#fff;border:0;position:relative;overflow:hidden}
+.about-teaser::before{content:"RO";position:absolute;left:-20px;bottom:-65px;font:normal clamp(180px,25vw,330px)/1 Georgia,serif;color:rgba(255,255,255,.07);pointer-events:none}
+.about-teaser .wrap{position:relative;gap:65px}
+.about-teaser .eyebrow{color:#fff;letter-spacing:2px}
+.about-teaser h2{color:#fff;font-size:clamp(40px,4.7vw,64px);max-width:520px;line-height:1.08}
+.about-teaser .wrap>div:last-child{border-left:1px solid rgba(255,255,255,.35);padding-left:45px}
+.about-teaser p:not(.eyebrow){color:#fff;line-height:1.85}
+.about-teaser .button{background:#fff;color:#a3071c;border:1px solid #fff;margin-top:12px}
+.about-teaser .button:hover{background:#202020;border-color:#202020;color:#fff}
+@media(max-width:720px){.about-teaser .wrap{gap:25px}.about-teaser .wrap>div:last-child{border-left:0;border-top:1px solid rgba(255,255,255,.35);padding:25px 0 0}}

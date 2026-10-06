@@ -1,24 +1,6 @@
-/* A readable catalogue, with all proposals visible without a carousel. */
-.catalog .section-title{align-items:flex-start}
-.catalog .section-title>p{max-width:420px;font-size:17px;line-height:1.8}
-.catalog .filters{gap:10px;margin-bottom:28px}
-.catalog .filters button{min-height:44px;padding:10px 16px}
-.catalog .carousel-controls{display:none}
-.catalog .carousel .product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;overflow:visible;scroll-snap-type:none;padding:0}
-.catalog .carousel .product{min-width:0;border:1px solid var(--border);background:white;display:flex;flex-direction:column;transition:border-color .2s}
-.catalog .carousel .product:hover{border-color:var(--red)}
-.catalog .carousel .product-cover{min-height:0;height:auto;padding:20px 28px;display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:15px}
-.catalog .carousel .product-cover span{font-size:12px;letter-spacing:1px}
-.catalog .carousel .product-cover strong{font-size:34px;line-height:1;letter-spacing:-1px}
-.catalog .carousel .product-body{padding:28px;display:flex;flex-direction:column;flex:1}
-.catalog .carousel .product h3{font-size:32px;line-height:1.2;letter-spacing:-.7px;margin:0 0 18px}
-.catalog .carousel .product-body>p{font-size:16px;line-height:1.8;margin:0 0 28px;color:var(--gray)}
-.catalog .product-body button,.catalog .product-link{min-height:48px}
-.about-teaser .wrap{gap:40px}
-.about-teaser .button{margin-top:8px}
 .home-contact-card{display:grid;grid-template-columns:1.2fr 1fr;gap:45px;align-items:center}
 .home-contact-card h2{font-size:clamp(34px,4vw,52px)}
 .home-contact-card>div:last-child{padding:30px;background:var(--paper);border-top:3px solid var(--red)}
 .home-contact-card p{line-height:1.8;color:var(--gray)}
 .home-contact-card .contact-email{display:block;margin-top:20px;text-decoration:underline;overflow-wrap:anywhere}
-@media(max-width:720px){.catalog .carousel .product-grid,.home-contact-card{grid-template-columns:1fr;gap:22px}.catalog .carousel .product-cover{padding:18px 22px}.catalog .carousel .product-body{padding:24px}.catalog .carousel .product h3{font-size:29px}}
+@media(max-width:720px){.home-contact-card{grid-template-columns:1fr;gap:22px}}
