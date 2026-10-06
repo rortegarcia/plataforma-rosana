@@ -4,3 +4,5 @@
 .home-contact-card p{line-height:1.8;color:var(--gray)}
 .home-contact-card .contact-email{display:block;margin-top:20px;text-decoration:underline;overflow-wrap:anywhere}
 @media(max-width:720px){.home-contact-card{grid-template-columns:1fr;gap:22px}}
+
+.rental-teaser{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#fff}.rental-teaser .wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:center}.rental-teaser h2{font-size:clamp(32px,4vw,46px)}.rental-teaser p:not(.eyebrow){color:var(--gray);line-height:1.8}.rental-teaser img{width:100%;height:auto;max-height:250px;object-fit:contain}.rental-teaser .button{margin-top:12px}@media(max-width:720px){.rental-teaser .wrap{grid-template-columns:1fr;gap:25px}}
