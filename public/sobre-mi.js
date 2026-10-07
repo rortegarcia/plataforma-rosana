@@ -12,7 +12,7 @@ function setBiographyLanguage(lang) {
   for (const id of ['es', 'pt']) document.getElementById(id).setAttribute('aria-pressed', String(id === lang));
   document.title = (lang === 'pt' ? 'Sobre mim e a minha trajetória' : 'Sobre mí y mi trayectoria') + ' · Rosana Ortega García';
   document.querySelector('meta[name="description"]').content = lang === 'pt'
-    ? 'Conheça a trajetória de Rosana Ortega García: formação em línguas, tradução, interpretação, clientes e o seu livro de português para hispanofalantes.'
+    ? 'Conheça a trajetória de Rosana Ortega García: formação em línguas, tradução, interpretação, clientes e o seu livro de português para falantes de espanhol.'
     : 'Conoce la trayectoria de Rosana Ortega García: formación de idiomas, traducción, interpretación, clientes y su libro de portugués para hispanohablantes.';
   const url = new URL(location.href);
   url.searchParams.set('lang', lang);

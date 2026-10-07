@@ -1,13 +1,13 @@
 let language = 'es';
 const es = Object.fromEntries([...document.querySelectorAll('[data-t]')].map(el => [el.dataset.t, el.textContent]));
 const pt = {
-  home:'Início',about:'Sobre mim',contact:'Contacto',eyebrow:'VAMOS CONVERSAR',title:'Fale-me do seu projeto.',
-  intro:'Uma tradução, uma reunião ou um novo idioma. Escreva-me e encontraremos a melhor forma de trabalhar juntos.',
-  direct:'Prefere escrever diretamente?',directNote:'Pode enviar um e-mail para o meu endereço habitual.',
-  formTitle:'Envie-me uma mensagem',name:'O seu nome',email:'O seu e-mail',reason:'De que precisa?',
-  equipment:'Aluguer de equipamentos',information:'Informações gerais',translation:'Tradução',interpretation:'Interpretação',classes:'Aulas de línguas',
+  home:'Início',about:'Sobre mim',contact:'Contato',eyebrow:'VAMOS CONVERSAR',title:'Conte sobre seu projeto.',
+  intro:'Uma tradução, uma reunião ou um novo idioma. Escreva para mim e encontraremos a melhor forma de trabalhar juntos.',
+  direct:'Prefere entrar em contato por e-mail?',directNote:'Pode enviar um e-mail para o meu endereço habitual.',
+  formTitle:'Envie uma mensagem',name:'Seu nome',email:'Seu e-mail',reason:'Como posso ajudar?',
+  equipment:'Aluguel de equipamentos',information:'Informações gerais',translation:'Tradução',interpretation:'Interpretação',classes:'Aulas de idiomas',
   portugues:'Aulas de português',espanol:'Aulas de espanhol',taller:'Oficinas de leitura',materiales:'Produtos linguísticos',payment:'Consulta sobre pagamentos',
-  message:'A sua mensagem',hint:'Conte-me de que precisa e, se necessário, indique as línguas, datas ou prazos.',
+  message:'Sua mensagem',hint:'Conte o que você precisa e, se necessário, indique as línguas, datas ou prazos.',
   consent:'Aceito enviar os meus dados à Rosana Ortega para responder a este pedido.',
   note:'Usarei o e-mail indicado para responder ao seu pedido. O envio deste formulário não implica uma inscrição ou pagamento.',
   submit:'Enviar pedido ↗',back:'Voltar ao início ↑'
@@ -20,8 +20,8 @@ function setLanguage(value) {
   document.querySelectorAll('[data-t]').forEach(el => { if (dict[el.dataset.t] !== undefined) el.textContent = dict[el.dataset.t]; });
   for (const [el,href] of links) { const url = new URL(href,location.origin);url.searchParams.set('lang',language);el.href=url.pathname+url.search+url.hash; }
   for (const id of ['es','pt']) document.getElementById(id).setAttribute('aria-pressed',String(language===id));
-  document.title=(language==='pt'?'Contacto':'Contacto')+' · Rosana Ortega García';
-  document.querySelector('meta[name="description"]').content=language==='pt'?'Contacte Rosana Ortega García para tradução, interpretação e aulas de línguas.':'Contacta con Rosana Ortega García para traducción, interpretación y clases de idiomas.';
+  document.title=(language==='pt'?'Contato':'Contacto')+' · Rosana Ortega García';
+  document.querySelector('meta[name="description"]').content=language==='pt'?'Entre em contato com Rosana Ortega García para tradução, interpretação e aulas de idiomas.':'Contacta con Rosana Ortega García para traducción, interpretación y clases de idiomas.';
   const url=new URL(location.href);url.searchParams.set('lang',language);history.replaceState(null,'',url);
   document.querySelectorAll('form').forEach(form=>form.refreshStatus?.());
 }
