@@ -1,13 +1,13 @@
 let language = 'es';
 const es = Object.fromEntries([...document.querySelectorAll('[data-t]')].map(el => [el.dataset.t, el.textContent]));
 const pt = {
-  home:'Início',about:'Sobre mim',contact:'Contacto',eyebrow:'VAMOS CONVERSAR',title:'Conte-me o seu projeto.',
+  home:'Início',about:'Sobre mim',contact:'Contacto',eyebrow:'VAMOS CONVERSAR',title:'Fale-me do seu projeto.',
   intro:'Uma tradução, uma reunião ou um novo idioma. Escreva-me e encontraremos a melhor forma de trabalhar juntos.',
   direct:'Prefere escrever diretamente?',directNote:'Pode enviar um e-mail para o meu endereço habitual.',
-  formTitle:'Envie-me uma mensagem',name:'O seu nome',email:'O seu e-mail',reason:'O que precisa?',
+  formTitle:'Envie-me uma mensagem',name:'O seu nome',email:'O seu e-mail',reason:'De que precisa?',
   equipment:'Aluguer de equipamentos',information:'Informações gerais',translation:'Tradução',interpretation:'Interpretação',classes:'Aulas de línguas',
   portugues:'Aulas de português',espanol:'Aulas de espanhol',taller:'Oficinas de leitura',materiales:'Produtos linguísticos',payment:'Consulta sobre pagamentos',
-  message:'A sua mensagem',hint:'Conte-me o que precisa e, se necessário, indique as línguas, datas ou prazos.',
+  message:'A sua mensagem',hint:'Conte-me de que precisa e, se necessário, indique as línguas, datas ou prazos.',
   consent:'Aceito enviar os meus dados à Rosana Ortega para responder a este pedido.',
   note:'Usarei o e-mail indicado para responder ao seu pedido. O envio deste formulário não implica uma inscrição ou pagamento.',
   submit:'Enviar pedido ↗',back:'Voltar ao início ↑'

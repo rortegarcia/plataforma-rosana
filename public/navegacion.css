@@ -1,12 +1,13 @@
-header{flex-wrap:wrap;gap:18px 24px;padding:24px 40px}
-header .logo{width:240px;height:auto}
-header .site-nav{display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:center;align-items:center}
-header .site-nav a{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 12px;font-size:17px;font-weight:600;line-height:1.3;white-space:nowrap;border-radius:4px;transition:background .15s,color .15s}
+header{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:14px;padding:20px 24px;max-width:1500px}
+header>a:first-child{min-width:0}
+header .logo{width:180px;height:auto;max-width:100%}
+header .site-nav{display:flex;flex-wrap:nowrap;gap:2px;justify-content:center;align-items:center;min-width:0;width:auto;margin:0;padding:0;border:0;overflow-x:auto}
+header .site-nav a{display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;min-height:44px;padding:8px 6px;font-size:16px;font-weight:600;line-height:1.3;white-space:nowrap;border-radius:4px;transition:background .15s,color .15s}
 header .site-nav a:hover{background:var(--paper);color:var(--red)}
-header .site-nav a:focus-visible,header .languages button:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+header .site-nav a:focus-visible,header .languages button:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
 header .site-nav a[aria-current=page]{color:var(--red);background:var(--paper);text-decoration:underline;text-underline-offset:6px}
-header .languages{font-size:16px;gap:5px}
-header .languages button{font-size:16px;min-width:44px;min-height:44px;padding:10px 8px}
-header>.button,header>.button.small{font-size:16px;min-height:48px;padding:13px 22px;display:inline-flex;align-items:center}
-@media(max-width:1450px){header .site-nav{order:4;width:100%;margin:0;padding-top:12px;border-top:1px solid var(--border)}header .languages{margin-left:auto}}
-@media(max-width:720px){header{padding:20px 22px;gap:14px}header .logo{width:200px;max-width:55vw}header .site-nav{justify-content:flex-start;gap:6px 8px}header .site-nav a{font-size:16px;min-height:46px;padding:10px 12px}header>.button,header>.button.small{font-size:15px;padding:12px 18px}}
+header .languages{font-size:15px;gap:3px;margin:0;white-space:nowrap}
+header .languages button{font-size:15px;min-width:36px;min-height:44px;padding:8px 5px}
+header>.button,header>.button.small{font-size:15px;min-height:44px;padding:11px 14px;display:inline-flex;align-items:center;white-space:nowrap;margin:0}
+@media(max-width:1179px){header{grid-template-columns:minmax(0,1fr) auto auto;gap:12px}header>a:first-child{grid-column:1;grid-row:1}header .languages{grid-column:2;grid-row:1}header>.button{grid-column:3;grid-row:1}header .site-nav{grid-column:1/-1;grid-row:2;justify-content:flex-start;padding-top:10px;border-top:1px solid var(--border)}}
+@media(max-width:600px){header{padding:14px 16px;gap:8px}header .logo{width:150px}header .site-nav a{font-size:15px;min-height:44px;padding:8px 10px}header>.button,header>.button.small{font-size:14px;padding:10px}header .languages button{min-width:30px;padding:8px 3px}}
