@@ -16,3 +16,7 @@
 header nav{flex-wrap:wrap}
 @media(max-width:850px){.contact-page{grid-template-columns:1fr;gap:35px;padding-top:45px}.contact-form-card{padding:25px}.contact-page .intro{max-width:100%}}
 @media(max-width:430px){.contact-form-card .form-row{grid-template-columns:1fr}.contact-form-card{padding:20px}.contact-page h1{font-size:44px}}
+
+.contact-form-card .inquiry-consent{display:flex;flex-direction:row;align-items:flex-start;gap:12px;line-height:1.5;margin:20px 0;cursor:pointer}
+.contact-form-card .inquiry-consent input[type="checkbox"]{flex:0 0 18px;width:18px;height:18px;padding:0;margin:2px 0 0;accent-color:var(--red)}
+.contact-form-card .inquiry-consent span{flex:1;min-width:0}
