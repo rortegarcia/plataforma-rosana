@@ -6,3 +6,5 @@
 @media(max-width:720px){.home-contact-card{grid-template-columns:1fr;gap:22px}}
 
 .rental-teaser{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#fff}.rental-teaser .wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:center}.rental-teaser h2{font-size:clamp(32px,4vw,46px)}.rental-teaser p:not(.eyebrow){color:var(--gray);line-height:1.8}.rental-teaser img{width:100%;height:auto;max-height:250px;object-fit:contain}.rental-teaser .button{margin-top:12px}@media(max-width:720px){.rental-teaser .wrap{grid-template-columns:1fr;gap:25px}}
+
+.filters a{display:inline-flex;align-items:center;justify-content:center;padding:10px 18px;border:1px solid #ccc;background:transparent;color:var(--ink);font-size:14px;line-height:1.6;min-height:44px;text-align:center}.filters a:hover{border-color:var(--ink);background:var(--ink);color:white}.filters button{min-height:44px}
