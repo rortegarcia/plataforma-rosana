@@ -17,3 +17,5 @@
 .testimonials-source{font-size:12px;color:var(--gray);margin:20px 0 0}
 @media(max-width:1000px){.testimonials-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.testimonials-heading{grid-template-columns:1fr;gap:20px}}
 @media(max-width:620px){.testimonials-section{padding:42px 0}.testimonials-grid{grid-template-columns:1fr}.testimonial-card{padding:24px}.testimonial-card blockquote p{font-size:18px}}
+
+.testimonial-card blockquote p+p{margin-top:16px}
