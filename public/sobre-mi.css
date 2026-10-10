@@ -49,3 +49,5 @@
 @media(max-width:720px){.about-teaser .wrap{gap:25px}.about-teaser .wrap>div:last-child{border-left:0;border-top:1px solid rgba(255,255,255,.35);padding:25px 0 0}}
 
 .bio-hero{grid-template-columns:1.05fr 1fr;gap:45px}.bio-portrait{margin:0;border-bottom:4px solid var(--red)}.bio-portrait img{display:block;width:100%;height:auto}.bio-portrait figcaption{padding:15px 0;font-size:14px;color:var(--gray)}@media(max-width:720px){.bio-hero{grid-template-columns:1fr}}
+
+.bio-book .book-cover{background:var(--red);text-decoration:none}.bio-book .book-cover:hover{filter:brightness(.95)}
