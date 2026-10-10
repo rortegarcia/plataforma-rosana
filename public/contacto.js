@@ -3,14 +3,14 @@ const es = Object.fromEntries([...document.querySelectorAll('[data-t]')].map(el 
 const pt = {
   home:'Início',about:'Sobre mim',contact:'Contato',eyebrow:'VAMOS CONVERSAR',title:'Conte sobre seu projeto.',
   intro:'Uma tradução, uma reunião ou um novo idioma. Escreva para mim e encontraremos a melhor forma de trabalhar juntos.',
-  direct:'Prefere entrar em contato por e-mail?',directNote:'Pode enviar um e-mail para o meu endereço habitual.',
+  direct:'Prefere entrar em contato por e-mail?',directNote:'Você pode escrever diretamente para meu e-mail.',
   formTitle:'Envie uma mensagem',name:'Seu nome',email:'Seu e-mail',reason:'Como posso ajudar?',
   equipment:'Aluguel de equipamentos',information:'Informações gerais',translation:'Tradução',interpretation:'Interpretação',classes:'Aulas de idiomas',
   portugues:'Aulas de português',espanol:'Aulas de espanhol',taller:'Oficinas de leitura',materiales:'Produtos linguísticos',payment:'Consulta sobre pagamentos',
   message:'Sua mensagem',hint:'Conte o que você precisa e, se necessário, indique as línguas, datas ou prazos.',
-  consent:'Aceito enviar os meus dados à Rosana Ortega para responder a este pedido.',
-  note:'Usarei o e-mail indicado para responder ao seu pedido. O envio deste formulário não implica uma inscrição ou pagamento.',
-  submit:'Enviar pedido ↗',back:'Voltar ao início ↑'
+  consent:'Aceito enviar meus dados à Rosana Ortega para responder a esta solicitação.',
+  note:'Usarei o e-mail indicado para responder à sua solicitação. Enviar este formulário não confirma uma inscrição nem um pagamento.',
+  submit:'Enviar mensagem ↗',back:'Voltar ao início ↑'
 };
 const links = [...document.querySelectorAll('[data-language-link]')].map(el => [el,el.getAttribute('href')]);
 function setLanguage(value) {
