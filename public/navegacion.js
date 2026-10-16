@@ -18,3 +18,5 @@ function refreshLanguageDetails(lang) {
 }
 
 refreshNavigation();
+
+const brandLink=document.querySelector('header>a:first-child');if(brandLink){brandLink.classList.add('dual-brand');brandLink.innerHTML='<img src="/images/logo-portugues.jpg" alt="Plataforma Português" width="539" height="205"><img src="/images/logo-espanol.jpg" alt="Plataforma Español" width="539" height="205">';}

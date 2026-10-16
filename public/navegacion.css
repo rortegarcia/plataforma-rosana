@@ -35,3 +35,5 @@ main h1,main h2,main h3{overflow-wrap:break-word}
  .bio-book ul,.book-product ul{padding-left:22px}
 }
 @media(max-width:360px){header .logo{width:120px}header{gap:5px}header>.button.small{font-size:13px;padding:9px 7px}}
+
+header .dual-brand{display:flex;gap:12px;align-items:center}header .dual-brand img{width:140px;max-width:100%;height:auto}@media(max-width:1400px){header{grid-template-columns:minmax(0,1fr) auto auto}header .site-nav{grid-column:1/-1;grid-row:2;justify-content:flex-start;border-top:1px solid var(--border)}header .languages{grid-column:2;grid-row:1}header>.button{grid-column:3;grid-row:1}}@media(max-width:600px){header .dual-brand{flex-direction:column;gap:4px;align-items:flex-start}header .dual-brand img{width:145px}}
