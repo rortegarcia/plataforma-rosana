@@ -19,4 +19,13 @@ function refreshLanguageDetails(lang) {
 
 refreshNavigation();
 
-const brandLink=document.querySelector('header>a:first-child');if(brandLink){brandLink.classList.add('dual-brand');brandLink.innerHTML='<img src="/images/logo-portugues.jpg" alt="Plataforma Português" width="539" height="205"><img src="/images/logo-espanol.jpg" alt="Plataforma Español" width="539" height="205">';}
+function refreshBrand(){
+ const portuguese=document.documentElement.lang.startsWith('pt');
+ const src=portuguese?'/images/logo-portugues.jpg':'/images/logo-espanol.jpg';
+ const label=portuguese?'Plataforma Português':'Plataforma Español';
+ document.querySelectorAll('header>a:first-child img,footer img').forEach(img=>{img.src=src;img.alt=label;});
+ const home=document.querySelector('header>a:first-child');
+ if(home)home.setAttribute('aria-label',label+(portuguese?' — início':' — inicio'));
+}
+for(const id of ['es','pt'])document.getElementById(id)?.addEventListener('click',refreshBrand);
+refreshBrand();
