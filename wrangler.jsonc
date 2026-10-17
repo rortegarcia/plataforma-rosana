@@ -13,7 +13,10 @@
   "vars": {
     "CONTACT_EMAIL": "rortegarcia@gmail.com",
     "RESEND_FROM": "Plataforma Português <onboarding@resend.dev>",
-    "PAYPAL_URL": "https://paypal.me/rosanaortega/30EUR"
+    "PAYPAL_URL": "https://paypal.me/rosanaortega/30EUR",
+    "OWNER_EMAIL": "rortegarcia@gmail.com",
+    "ACCESS_TEAM_DOMAIN": "https://raspy-art-28f2.cloudflareaccess.com",
+    "ACCESS_AUD": "81a39e027b5611ec52047516472b222f4735b0e46be0629f616f61ed7106832d"
   },
   "d1_databases": [
     {
