@@ -29,3 +29,5 @@ function refreshBrand(){
 }
 for(const id of ['es','pt'])document.getElementById(id)?.addEventListener('click',refreshBrand);
 refreshBrand();
+
+const paymentLinksScript=document.createElement('script');paymentLinksScript.src='/payments-links.js';paymentLinksScript.defer=true;document.head.append(paymentLinksScript);
