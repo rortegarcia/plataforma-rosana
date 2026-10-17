@@ -3,6 +3,10 @@ function row(parent,values){const tr=document.createElement('tr');for(const valu
 async function refresh(){
  const state=document.getElementById('state'),dashboard=document.getElementById('dashboard');dashboard.hidden=true;state.textContent='Comprobando acceso…';
  try{const r=await fetch('/api/owner/summary',{cache:'no-store'});if(r.status===403){state.textContent='Acceso privado. Entra con tu correo autorizado a través de Cloudflare Access. Si aún no está configurado, los datos permanecen bloqueados.';return;}if(!r.ok)throw Error();const d=await r.json();
+  const traffic=d.traffic;const trafficReady=traffic?.status==='ready';const number=new Intl.NumberFormat('es-ES',{maximumFractionDigits:0});
+  document.getElementById('visits').textContent=trafficReady?number.format(traffic.visits):'—';
+  document.getElementById('pageviews').textContent=trafficReady?number.format(traffic.pageViews):'—';
+  document.getElementById('traffic-state').textContent=trafficReady?'Datos de Cloudflare hasta '+new Date(traffic.to).toLocaleString('es-ES',{timeZone:'Europe/Madrid'})+'.':traffic?.status==='not_configured'?'Conexión de visitas pendiente: falta configurar la clave de estadísticas y el identificador de la zona en Cloudflare.':'No se han podido consultar las visitas. Las inscripciones y los pagos siguen disponibles. Pulsa Actualizar para volver a intentarlo.';
   document.getElementById('registrations').textContent=d.registrations.filter(x=>x.kind==='workshop').reduce((a,x)=>a+x.total,0);
   document.getElementById('inquiries').textContent=d.registrations.filter(x=>x.kind==='inquiry').reduce((a,x)=>a+x.total,0);
   document.getElementById('payments').textContent=d.payments.reduce((a,x)=>a+x.total,0);

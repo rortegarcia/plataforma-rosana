@@ -1,3 +1,4 @@
+import { visitorAnalytics } from './visitor-analytics.js';
 // No customer data or credentials are returned by the public configuration route.
 const products = {
   'book-student': {title:'Libro para alumnos', cents:1500},
@@ -99,7 +100,7 @@ export async function privateRoute(request,env){
     const payments=await q(env,"SELECT p.product,p.title,COUNT(*) total,SUM(pay.amount_cents) gross_cents FROM payments pay JOIN paypal_orders o ON o.id=pay.order_id JOIN purchases p ON p.id=o.purchase_id WHERE pay.status IN ('COMPLETED','REFUNDED','PARTIALLY_REFUNDED') GROUP BY p.product,p.title").all();
     const refunds=await q(env,'SELECT COALESCE(SUM(amount_cents),0) cents,COUNT(*) total FROM refunds').first();
     const recent=await q(env,"SELECT r.id,r.kind,r.title,r.customer_name,r.customer_email,r.created_at,EXISTS(SELECT 1 FROM purchases p JOIN paypal_orders o ON o.purchase_id=p.id JOIN payments pay ON pay.order_id=o.id WHERE p.registration_id=r.id AND pay.status='COMPLETED') paid FROM registrations r ORDER BY r.created_at DESC LIMIT 100").all();
-    return response({registrations:registrations.results,payments:payments.results,refunds,recent:recent.results,automaticPayments:ready(env),note:'Solo se incluyen solicitudes registradas desde la activación y pagos del nuevo checkout. PayPal.me y pagos anteriores no se importan.'});
+    return response({traffic:await visitorAnalytics(env),registrations:registrations.results,payments:payments.results,refunds,recent:recent.results,automaticPayments:ready(env),note:'Solo se incluyen solicitudes registradas desde la activación y pagos del nuevo checkout. PayPal.me y pagos anteriores no se importan.'});
   }
   if(request.method!=='POST')return response({error:'method'},405);
   if(path==='/api/paypal/webhook')return webhook(request,env);
