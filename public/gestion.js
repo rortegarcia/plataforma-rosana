@@ -7,6 +7,11 @@ async function refresh(){
   document.getElementById('visits').textContent=trafficReady?number.format(traffic.visits):'—';
   document.getElementById('pageviews').textContent=trafficReady?number.format(traffic.pageViews):'—';
   document.getElementById('traffic-state').textContent=trafficReady?'Datos de Cloudflare hasta '+new Date(traffic.to).toLocaleString('es-ES',{timeZone:'Europe/Madrid'})+'.':traffic?.status==='not_configured'?'Conexión de visitas pendiente: falta configurar la clave de estadísticas y el identificador de la zona en Cloudflare.':'No se han podido consultar las visitas. Las inscripciones y los pagos siguen disponibles. Pulsa Actualizar para volver a intentarlo.';
+  const byPage=document.getElementById('page-breakdown');byPage.replaceChildren();
+  const breakdown=traffic?.breakdown;
+  const pageNames={'/':'Inicio','/sobre-mi':'Sobre mí','/libro':'Mi libro: el método','/productos-linguisticos':'Productos lingüísticos','/contacto':'Contacto','/taller':'Talleres','/alquiler-equipos':'Alquiler de equipos'};
+  if(breakdown?.status==='ready'){for(const page of breakdown.pages)row(byPage,[pageNames[page.path]||page.path,number.format(page.views)]);}
+  document.getElementById('pages-state').textContent=breakdown?.status==='ready'?(breakdown.pages.length?(breakdown.truncated?'Se muestran las páginas con más consultas.':'No incluye el panel privado, el pago ni archivos como imágenes. Solo cuenta páginas HTML cargadas correctamente; el total puede diferir del contador general.'):'No se han registrado consultas de páginas públicas en este período.'):trafficReady?'El desglose por página no está disponible ahora. Pulsa Actualizar para volver a consultarlo.':'El desglose aparecerá cuando estén disponibles las estadísticas de Cloudflare.';
   document.getElementById('registrations').textContent=d.registrations.filter(x=>x.kind==='workshop').reduce((a,x)=>a+x.total,0);
   document.getElementById('inquiries').textContent=d.registrations.filter(x=>x.kind==='inquiry').reduce((a,x)=>a+x.total,0);
   document.getElementById('payments').textContent=d.payments.reduce((a,x)=>a+x.total,0);
