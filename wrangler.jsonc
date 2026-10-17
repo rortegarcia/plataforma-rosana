@@ -6,11 +6,20 @@
   "assets": {
     "directory": "./dist-netlify",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": [
+      "/api/*"
+    ]
   },
   "vars": {
     "CONTACT_EMAIL": "rortegarcia@gmail.com",
     "RESEND_FROM": "Plataforma Português <onboarding@resend.dev>",
     "PAYPAL_URL": "https://paypal.me/rosanaortega/30EUR"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "ANALYTICS_DB",
+      "database_name": "inscripciones-y-pagos",
+      "database_id": "0f243f16-02b4-430b-a594-e129029c24e4"
+    }
+  ]
 }
