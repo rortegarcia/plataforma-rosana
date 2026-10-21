@@ -73,3 +73,21 @@ header .logo{width:260px}
 /* Calendar cells remain square even when a date contains several workshops. */
 .calendar-view .calendar-grid{grid-auto-rows:auto;align-items:start}
 .calendar-view .calendar-day,.calendar-view .calendar-empty,.calendar-view .calendar-day:not(:has(.calendar-event)){aspect-ratio:1 / 1;width:100%;height:auto;min-height:0;overflow:auto}
+
+/* Show every event together; no cell has its own scroll area. */
+.calendar-view .calendar-day,.calendar-view .calendar-empty,.calendar-view .calendar-day:not(:has(.calendar-event)){overflow:visible;container-type:inline-size;padding:6px}
+.calendar-view .calendar-day h3{font-size:clamp(12px,9cqw,17px);line-height:1.1;margin:0 0 4px}
+.calendar-view .calendar-event{margin:4px 0;padding:4px;border-left-width:3px;font-size:clamp(9px,6.5cqw,12px);line-height:1.15}
+.calendar-view .calendar-event strong{font-size:clamp(10px,7.5cqw,14px);line-height:1.1;margin-bottom:3px}
+.calendar-view .calendar-event .workshop-director{font-size:clamp(8px,5.5cqw,11px);line-height:1.15}
+.calendar-event .calendar-time,.calendar-event .calendar-event-meta{margin-top:2px}
+@media(max-width:1000px){
+ .calendar-view .calendar-week,.calendar-view .calendar-empty{display:none}
+ .calendar-view .calendar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;border:0;background:transparent}
+ .calendar-view .calendar-mobile-week{display:inline}
+ .calendar-view .calendar-day{border:1px solid #ddd}
+ .calendar-view .calendar-event{padding:8px;margin:6px 0;font-size:12px}
+ .calendar-view .calendar-event strong{font-size:14px}
+ .calendar-view .calendar-event .workshop-director{font-size:11px}
+}
+@media(max-width:600px){.calendar-view .calendar-grid{grid-template-columns:minmax(0,1fr)}}
