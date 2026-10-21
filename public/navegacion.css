@@ -43,3 +43,14 @@ header .logo{width:260px}
 @media(max-width:1179px){header .logo{width:240px}}
 @media(max-width:600px){header .logo{width:190px}}
 @media(max-width:360px){header .logo{width:150px}}
+
+/* Workshop colors describe the workshop language, regardless of interface language. */
+.workshop-card,.workshop-detail{--workshop-color:#c90816}
+.workshop-portuguese{--workshop-color:#176b45}
+.workshop-card{border-top-color:var(--workshop-color)}
+.workshop-card .workshop-number,.workshop-card .eyebrow{color:var(--workshop-color)}
+.workshop-card .button,.workshop-detail .button{background:var(--workshop-color);border-color:var(--workshop-color);color:#fff}
+.workshop-portuguese .workshop-aside{border-top-color:var(--workshop-color)}
+.workshop-markers{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-bottom:20px;color:var(--workshop-color);font-size:14px;font-weight:700}
+.workshop-language{border:1px solid currentColor;border-radius:20px;padding:5px 12px}
+.workshop-length>span{letter-spacing:3px}
