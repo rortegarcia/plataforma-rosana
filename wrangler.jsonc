@@ -24,5 +24,6 @@
       "database_name": "inscripciones-y-pagos",
       "database_id": "0f243f16-02b4-430b-a594-e129029c24e4"
     }
-  ]
+  ],
+  "keep_vars": true
 }
