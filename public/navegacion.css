@@ -69,3 +69,7 @@ header .logo{width:260px}
  .calendar-view .calendar-day,.calendar-view .calendar-day:not(:has(.calendar-event)){display:block;margin-bottom:0;height:100%}
  .calendar-event .workshop-director{font-size:13px}
 }
+
+/* Calendar cells remain square even when a date contains several workshops. */
+.calendar-view .calendar-grid{grid-auto-rows:auto;align-items:start}
+.calendar-view .calendar-day,.calendar-view .calendar-empty,.calendar-view .calendar-day:not(:has(.calendar-event)){aspect-ratio:1 / 1;width:100%;height:auto;min-height:0;overflow:auto}
