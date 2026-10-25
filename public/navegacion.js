@@ -12,7 +12,20 @@ function refreshLanguageDetails(lang) {
   'Equipo de transmisi\u00f3n y recepci\u00f3n con micr\u00f3fono y fones de ouvido':'Equipamento de transmiss\u00e3o e rece\u00e7\u00e3o com microfone e fones de ouvido',
   'Rosana Ortega trabajando como int\u00e9rprete en una cabina de interpretaci\u00f3n':'Rosana Ortega trabalhando em uma cabine de interpreta\u00e7\u00e3o'
  };
- for(const [el,attr,original] of translatedAttributes) el.setAttribute(attr,lang==='pt'?(translations[original]||original):original);
+ Object.assign(translations,{
+ 'Transmisor con micrófono y receptores con auriculares':'Transmissor com microfone e receptores com fones de ouvido',
+ 'Rosana Ortega García trabajando como intérprete en una cabina durante un encuentro':'Rosana Ortega García trabalhando como intérprete em uma cabine durante um encontro',
+ 'Rosana Ortega García en la Universidad de Navarra':'Rosana Ortega García na Universidade de Navarra',
+ 'Clientes destacados':'Clientes em destaque',
+ 'Trayectoria / Trajetória':'Trajetória',
+ 'Carrusel de propuestas / Carrossel de propostas':'Carrossel de propostas',
+ 'Propuestas':'Propostas','Anterior':'Anterior','Siguiente':'Próxima','Filtrar / Filtrar':'Filtrar'
+ });
+ for(const [el,attr,original] of translatedAttributes){
+  const spanish=Object.keys(translations).find(key=>key===original||translations[key]===original);
+  if(spanish)el.setAttribute(attr,lang==='pt'?translations[spanish]:spanish);
+ }
+ const skip=document.querySelector('.skip');if(skip)skip.textContent=lang==='pt'?'Ir para o conteúdo':'Saltar al contenido';
  const caption=document.querySelector('.type-art>p');
  if(caption) caption.textContent=lang==='pt'?'espanhol / portugu\u00eas':'espa\u00f1ol / portugu\u00eas';
 }
