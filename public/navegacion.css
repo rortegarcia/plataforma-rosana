@@ -129,3 +129,13 @@ header .logo{width:260px}
 .workshop-pagination button:disabled{opacity:.3;cursor:default}.workshop-pagination button:focus-visible{outline:3px solid #2258a6;outline-offset:3px}
 .workshop-pagination>span{font-size:13px;color:#555;margin-left:8px}
 @media(max-width:600px){.workshop-pagination{gap:5px}.workshop-pagination>span{flex-basis:100%;margin:6px 0}.workshop-pagination button{min-width:36px;min-height:44px}}
+
+/* Month arrows sit beside the calendar, centered on its day grid. */
+.calendar-side-frame{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;gap:10px;margin:22px -54px 0}
+.calendar-side-body{min-width:0}
+.calendar-side-frame>button{width:44px;height:48px;border:1px solid #ccc;background:white;color:#242424;font-size:24px;cursor:pointer;border-radius:4px}
+.calendar-side-frame>button:hover:not(:disabled){background:#242424;color:white}
+.calendar-side-frame>button:disabled{opacity:.3;cursor:default}
+.calendar-side-frame>button:focus-visible{outline:3px solid #2258a6;outline-offset:3px}
+@media(max-width:1250px){.calendar-side-frame{margin-left:0;margin-right:0}}
+@media(max-width:600px){.calendar-side-frame{grid-template-columns:32px minmax(0,1fr) 32px;gap:6px}.calendar-side-frame>button{width:32px;height:44px;font-size:22px}}
