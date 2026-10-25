@@ -155,3 +155,7 @@ footer img{width:240px;height:auto;max-width:100%}
  footer img{width:210px}
 }
 @media(max-width:360px){header .logo{width:220px}}
+
+a[data-t="bookLearn"],a[data-t="bookGet"]{color:var(--red);border-bottom-color:currentColor;font-weight:600}
+a[data-t="bookLearn"]:hover,a[data-t="bookGet"]:hover{color:#a40712}
+#comprar-libro{scroll-margin-top:28px}

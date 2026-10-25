@@ -6,3 +6,11 @@ Object.assign(pt,{bookLead:'<strong>Uma proposta para aprender e ensinar portugu
 document.querySelectorAll('[data-home]').forEach(el=>el.dataset.base=el.getAttribute('href'));
 function setLanguage(lang){const dict=lang==='pt'?pt:es;document.documentElement.lang=lang;document.querySelectorAll('[data-t]').forEach(el=>{if(dict[el.dataset.t]!==undefined){if(el.hasAttribute('data-book-rich'))el.innerHTML=dict[el.dataset.t];else el.textContent=dict[el.dataset.t]}});document.querySelectorAll('[data-home]').forEach(el=>{const [path,hash]=el.dataset.base.split('#');el.href=path+(lang==='pt'?'?lang=pt':'')+(hash?'#'+hash:'')});document.querySelectorAll('[data-book-contact]').forEach(el=>el.href='/contacto?tema=materiales&lang='+lang);document.querySelector('[data-children-contact]').href='/contacto?tema=materiales&lang='+lang;document.title=dict.title+' · Plataforma Português';document.querySelector('meta[name="description"]').content=dict.title+' · Rosana Ortega García';['es','pt'].forEach(id=>document.getElementById(id).setAttribute('aria-pressed',String(id===lang)));const url=new URL(location.href);url.searchParams.set('lang',lang);history.replaceState(null,'',url)}
 ['es','pt'].forEach(lang=>document.getElementById(lang).addEventListener('click',()=>setLanguage(lang)));setLanguage(new URLSearchParams(location.search).get('lang')==='pt'?'pt':'es');
+
+document.querySelector('[data-t="bookGet"]').addEventListener('click',event=>{
+ event.preventDefault();
+ document.getElementById('comprar-libro').scrollIntoView({
+  behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',
+  block:'start'
+ });
+});
