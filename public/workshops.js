@@ -1,7 +1,22 @@
 
 let workshopCatalogPage=0;
+const workshopFilters={duration:'all',language:'all',status:'all'};
+function workshopMatchesFilters(w){
+ const status=w.soldOut?'soldout':w.upcoming?'upcoming':'open';
+ return (workshopFilters.duration==='all'||String(w.lengthCategory||'pending')===workshopFilters.duration)
+ &&(workshopFilters.language==='all'||w.workshopLanguage===workshopFilters.language)
+ &&(workshopFilters.status==='all'||status===workshopFilters.status);
+}
+function workshopFilterControls(i,count){
+ const select=(key,label,options)=>'<label><span>'+label+'</span><select data-workshop-filter="'+key+'" id="workshop-filter-'+key+'">'+options.map(([value,text])=>'<option value="'+value+'"'+(workshopFilters[key]===value?' selected':'')+'>'+text+'</option>').join('')+'</select></label>';
+ return '<div class="workshop-filters" role="group" aria-label="'+(i?'Filtrar oficinas':'Filtrar talleres')+'">'+
+ select('duration',i?'Duração':'Duración',[['all',i?'Todas as durações':'Todas las duraciones'],['1',i?'● Curta':'● Corto'],['2',i?'●● Média':'●● Medio'],['3',i?'●●● Longa':'●●● Largo'],['pending',i?'A confirmar':'Por confirmar']])+
+ select('language',i?'Idioma':'Idioma',[['all',i?'Todos os idiomas':'Todos los idiomas'],['es',i?'Espanhol':'Español'],['pt',i?'Português':'Portugués']])+
+ select('status',i?'Disponibilidade':'Disponibilidad',[['all',i?'Todas':'Todas'],['open',i?'Inscrições abertas':'Inscripciones abiertas'],['upcoming',i?'Em breve':'Próximamente'],['soldout',i?'Esgotadas':'Agotados']])+
+ '<button type="button" data-reset-workshop-filters>'+(i?'Limpar filtros':'Limpiar filtros')+'</button></div><p class="workshop-filter-status" role="status">'+count+' '+(i?(count===1?'oficina encontrada':'oficinas encontradas'):(count===1?'taller encontrado':'talleres encontrados'))+' · '+(i?'Os filtros também se aplicam ao calendário.':'Los filtros también se aplican al calendario.')+'</p>';
+}
 function workshopPager(i,count){
- const pages=Math.ceil(count/workshopCatalogPageSize());
+ if(!count)return '';const pages=Math.ceil(count/workshopCatalogPageSize());
  return '<nav class="workshop-pagination" aria-label="'+(i?'Páginas do catálogo':'Páginas del catálogo')+'"><button type="button" data-catalog-page="'+(workshopCatalogPage-1)+'" '+(workshopCatalogPage===0?'disabled':'')+' aria-label="'+(i?'Página anterior':'Página anterior')+'">←</button>'+Array.from({length:pages},(_,page)=>'<button type="button" data-catalog-page="'+page+'"'+(page===workshopCatalogPage?' aria-current="page"':'')+' aria-label="'+(i?'Página ':'Página ')+(page+1)+'">'+(page+1)+'</button>').join('')+'<button type="button" data-catalog-page="'+(workshopCatalogPage+1)+'" '+(workshopCatalogPage===pages-1?'disabled':'')+' aria-label="'+(i?'Próxima página':'Página siguiente')+'">→</button><span aria-live="polite">'+(i?'Página ':'Página ')+(workshopCatalogPage+1)+' / '+pages+'</span></nav>';
 }
 function workshopCatalogPageSize(){return window.matchMedia('(max-width:600px)').matches?2:window.matchMedia('(max-width:1000px)').matches?4:6;}
@@ -30,21 +45,21 @@ function workshopCalendarEvents(){
   return dates.map(date=>({...date,w}));
  }));
 }
-function workshopCatalog(i){const size=workshopCatalogPageSize();workshopCatalogPage=Math.max(0,Math.min(workshopCatalogPage,Math.ceil(workshops.length/size)-1));
- return '<nav class="workshop-section-nav" aria-label="'+(i?'Seções das oficinas':'Secciones de talleres')+'"><a href="#catalogo-talleres">'+(i?'Todas as oficinas':'Todos los talleres')+'</a><a href="#calendario-talleres">'+(i?'Ver calendário ↓':'Ver calendario ↓')+'</a></nav><section id="catalogo-talleres" class="workshop-catalog-section" aria-labelledby="workshop-catalog-title"><p class="eyebrow">'+(i?'LEIA, DESCUBRA E COMPARTILHE':'LEE, DESCUBRE Y COMPARTE')+'</p><h2 id="workshop-catalog-title">'+(i?'Todas as oficinas':'Todos los talleres')+'</h2><p>'+(i?'Conheça as propostas e escolha sua próxima leitura. Clique em um cartaz para ver os detalhes.':'Descubre las propuestas y elige tu próxima lectura. Pulsa un cartel para ver los detalles.')+'</p>'+workshopPager(i,workshops.length)+'<div class="workshop-poster-grid">'+workshops.slice(workshopCatalogPage*size,(workshopCatalogPage+1)*size).map(w=>{
+function workshopCatalog(i){const visible=workshops.filter(workshopMatchesFilters),size=workshopCatalogPageSize();workshopCatalogPage=Math.max(0,Math.min(workshopCatalogPage,Math.ceil(visible.length/size)-1));
+ return '<nav class="workshop-section-nav" aria-label="'+(i?'Seções das oficinas':'Secciones de talleres')+'"><a href="#catalogo-talleres">'+(i?'Todas as oficinas':'Todos los talleres')+'</a><a href="#calendario-talleres">'+(i?'Ver calendário ↓':'Ver calendario ↓')+'</a></nav><section id="catalogo-talleres" class="workshop-catalog-section" aria-labelledby="workshop-catalog-title"><p class="eyebrow">'+(i?'LEIA, DESCUBRA E COMPARTILHE':'LEE, DESCUBRE Y COMPARTE')+'</p><h2 id="workshop-catalog-title">'+(i?'Todas as oficinas':'Todos los talleres')+'</h2><p>'+(i?'Conheça as propostas e escolha sua próxima leitura. Clique em um cartaz para ver os detalhes.':'Descubre las propuestas y elige tu próxima lectura. Pulsa un cartel para ver los detalles.')+'</p>'+workshopFilterControls(i,visible.length)+workshopPager(i,visible.length)+(visible.length?'':'<p class="workshop-no-results">'+(i?'Nenhuma oficina corresponde aos filtros. Tente outra combinação ou limpe os filtros.':'No hay talleres con esos filtros. Prueba otra combinación o limpia los filtros.')+'</p>')+'<div class="workshop-poster-grid">'+visible.slice(workshopCatalogPage*size,(workshopCatalogPage+1)*size).map(w=>{
  const href='/taller/'+w.id+(i?'?lang=pt':'');
  const status=w.soldOut?(i?'ESGOTADO':'AGOTADO'):w.upcoming?(i?'EM BREVE':'PRÓXIMAMENTE'):(i?'INSCRIÇÕES ABERTAS':'INSCRIPCIONES ABIERTAS');
  return '<article class="workshop-poster-card '+(w.workshopLanguage==='pt'?'workshop-portuguese':'workshop-spanish')+'"><a class="workshop-poster-image" href="'+href+'" aria-label="'+escapeHtml(w.title[i])+'"><img src="'+escapeHtml(w.image)+'" alt="'+escapeHtml(w.imageAlt[i])+'" loading="lazy" width="300" height="400"><span class="workshop-poster-status">'+status+'</span></a><div class="workshop-poster-copy">'+workshopMarkers(w,i)+'<h3><a href="'+href+'">'+escapeHtml(w.title[i])+'</a></h3><p>'+escapeHtml(w.intro[i])+'</p>'+workshopCatalogSchedule(w,i)+'<div class="workshop-poster-bottom">'+(w.priceEuros?'<strong>'+w.priceEuros+' €</strong>':'<span>'+(i?'Preço a confirmar':'Fechas por confirmar')+'</span>')+'<a class="textlink" href="'+href+'">'+(i?'Ver detalhes ↗':'Ver detalles ↗')+'</a></div></div></article>';
- }).join('')+'</div>'+workshopPager(i,workshops.length)+'</section>';
+ }).join('')+'</div>'+workshopPager(i,visible.length)+'</section>';
 }
 
 let calendarMonth=null;
 function renderWorkshopCalendar(i){
  const list=document.getElementById('workshop-list');list.classList.add('calendar-view');
- const events=workshopCalendarEvents();
+ const allEvents=workshopCalendarEvents();const events=allEvents.filter(e=>workshopMatchesFilters(e.w));
  const free=workshops.find(w=>w.id==='cien-anos-de-soledad');
- if(free?.event)events.push({date:'2026-10-31',spain:'15:00',brazil:'11:00',w:free,free:true});
- const months=[...new Set(events.map(e=>e.date.slice(0,7)))].sort();
+ if(free?.event&&workshopMatchesFilters(free))events.push({date:'2026-10-31',spain:'15:00',brazil:'11:00',w:free,free:true});
+ const months=[...new Set(allEvents.map(e=>e.date.slice(0,7)))].sort();
  const today=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
  if(!calendarMonth||!months.includes(calendarMonth))calendarMonth=months.find(m=>m>=today.slice(0,7))||months.at(-1);
  const [year,month]=calendarMonth.split('-').map(Number),current=months.indexOf(calendarMonth);
@@ -62,6 +77,8 @@ function renderWorkshopCalendar(i){
  }
  list.innerHTML=workshopCatalog(i)+'<section id="calendario-talleres" class="workshop-calendar-section" aria-labelledby="workshop-calendar-title"><h2 id="workshop-calendar-title">'+(i?'Calendário de oficinas':'Calendario de talleres')+'</h2><div class="calendar-heading"><div><p class="eyebrow">'+(i?'SUA PRÓXIMA LEITURA':'TU PRÓXIMA LECTURA')+'</p><h2>'+escapeHtml(monthName)+'</h2></div><div class="calendar-controls"><button type="button" data-month="'+(months[current-1]||'')+'" '+(current===0?'disabled':'')+' aria-label="'+(i?'Mês anterior':'Mes anterior')+'">←</button><button type="button" data-month="'+(months[current+1]||'')+'" '+(current===months.length-1?'disabled':'')+' aria-label="'+(i?'Próximo mês':'Mes siguiente')+'">→</button></div></div><div class="calendar-legend"><span class="calendar-spanish">'+(i?'Vermelho · Espanhol':'Rojo · Español')+'</span><span class="calendar-portuguese">'+(i?'Verde · Português':'Verde · Portugués')+'</span><span>● '+(i?'Curta':'Corto')+' · ●● '+(i?'Média':'Medio')+' · ●●● '+(i?'Longa':'Largo')+'</span></div><p>'+(i?'Todas as oficinas são conduzidas por Rosana Ortega. Clique no nome para ver os detalhes. Horários da Espanha peninsular e de Brasília.':'Todos los talleres están dirigidos por Rosana Ortega. Pulsa el nombre para ver los detalles. Horarios de España peninsular y Brasilia.')+'</p><div class="calendar-week" aria-hidden="true">'+week.map(d=>'<span>'+d+'</span>').join('')+'</div><div class="calendar-grid">'+cells+'</div><p class="calendar-note">'+(i?'Mostramos apenas as datas confirmadas. Novas sessões das oficinas continuadas serão incluídas quando forem anunciadas.':'Mostramos solo las fechas confirmadas. Las nuevas sesiones de los talleres continuados se añadirán cuando se anuncien.')+'</p></section>';
  const monthControls=list.querySelector('.calendar-controls'),calendarWeek=list.querySelector('.calendar-week'),calendarGrid=list.querySelector('.calendar-grid');if(monthControls&&calendarWeek&&calendarGrid){const frame=document.createElement('div'),body=document.createElement('div');frame.className='calendar-side-frame';body.className='calendar-side-body';calendarWeek.before(frame);const buttons=Array.from(monthControls.children);buttons[0].classList.add('calendar-side-prev');buttons[1].classList.add('calendar-side-next');frame.append(buttons[0],body,buttons[1]);body.append(calendarWeek,calendarGrid);monthControls.remove();}
+ list.querySelectorAll('[data-workshop-filter]').forEach(select=>select.addEventListener('change',()=>{const key=select.dataset.workshopFilter;workshopFilters[key]=select.value;workshopCatalogPage=0;renderWorkshopCalendar(i);document.getElementById('workshop-filter-'+key)?.focus({preventScroll:true});}));
+ list.querySelector('[data-reset-workshop-filters]')?.addEventListener('click',()=>{for(const key of Object.keys(workshopFilters))workshopFilters[key]='all';workshopCatalogPage=0;renderWorkshopCalendar(i);document.getElementById('workshop-filter-duration')?.focus({preventScroll:true});});
  list.querySelectorAll('[data-catalog-page]').forEach(button=>button.addEventListener('click',()=>{if(button.disabled)return;workshopCatalogPage=Number(button.dataset.catalogPage);renderWorkshopCalendar(i);const grid=document.querySelector('.workshop-poster-grid');if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches&&grid?.animate)grid.animate([{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:240,easing:'ease-out'});document.getElementById('catalogo-talleres').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});document.querySelector('.workshop-pagination [aria-current="page"]')?.focus({preventScroll:true});}));
  list.querySelectorAll('[data-month]').forEach(button=>button.addEventListener('click',()=>{if(button.dataset.month){calendarMonth=button.dataset.month;renderWorkshopCalendar(i);}}));
 }
