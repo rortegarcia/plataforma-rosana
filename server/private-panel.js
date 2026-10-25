@@ -4,8 +4,8 @@ const products = {
   'book-student': {title:'Libro para alumnos', cents:1500},
   'book-teacher': {title:'Libro y tutoría para profesores', cents:2000},
   'cuentos-clarice-lispector': {title:'Taller de Clarice Lispector', cents:3000},
-  'garcia-lorca': {title:'Taller García Lorca', cents:3000},
-  'cien-anos-de-soledad': {title:'Taller Cien años de soledad', cents:3000},
+  'garcia-lorca': {title:'Taller García Lorca', cents:4400},
+  'cien-anos-de-soledad': {title:'Taller Cien años de soledad', cents:2600},
 };
 export const response = (data,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
 const ready=env=>Boolean(env.ANALYTICS_DB&&env.PAYPAL_CLIENT_ID&&env.PAYPAL_CLIENT_SECRET&&env.PAYPAL_WEBHOOK_ID&&env.PAYMENTS_ENABLED==='true');
