@@ -115,3 +115,10 @@ header .logo{width:260px}
 .workshop-card-schedule li>span{display:block}
 .workshop-schedule-group{font-size:12px;font-weight:700;color:var(--workshop-color);margin-bottom:3px}
 .workshop-card-schedule p{margin:0}.workshop-card-schedule .workshop-schedule-note{font-size:12px;color:#666;margin-top:12px}
+
+/* Keep dates with several workshops readable together, without internal scrollbars. */
+.calendar-view .calendar-busy .calendar-event{padding:3px 4px;margin:3px 0}
+.calendar-view .calendar-busy .calendar-event .workshop-director,.calendar-view .calendar-busy .calendar-event .calendar-event-meta{display:none}
+.calendar-view .calendar-busy .calendar-event strong{font-size:clamp(9px,6.5cqw,12px);margin-bottom:1px}
+.calendar-view .calendar-busy .calendar-event .calendar-time{font-size:clamp(8px,5.5cqw,10px);margin-top:0}
+@media(max-width:1000px){.calendar-view .calendar-busy .calendar-event strong{font-size:13px}.calendar-view .calendar-busy .calendar-event .calendar-time{font-size:11px}}
