@@ -139,3 +139,19 @@ header .logo{width:260px}
 .calendar-side-frame>button:focus-visible{outline:3px solid #2258a6;outline-offset:3px}
 @media(max-width:1250px){.calendar-side-frame{margin-left:0;margin-right:0}}
 @media(max-width:600px){.calendar-side-frame{grid-template-columns:32px minmax(0,1fr) 32px;gap:6px}.calendar-side-frame>button{width:32px;height:44px;font-size:22px}}
+
+/* Larger Spanish and Portuguese logos, sharing the same responsive layout. */
+header .logo{width:330px}
+footer img{width:240px;height:auto;max-width:100%}
+@media(max-width:1179px){header .logo{width:300px}}
+@media(max-width:600px){
+ header{grid-template-columns:minmax(0,1fr) auto}
+ header>a:first-child{grid-column:1;grid-row:1}
+ header .logo{width:260px}
+ header .languages{grid-column:2;grid-row:1}
+ header .site-nav{grid-column:1/-1;grid-row:2}
+ header:has(>.button) .site-nav{grid-column:1;grid-row:2}
+ header>.button,header>.button.small{grid-column:2;grid-row:2}
+ footer img{width:210px}
+}
+@media(max-width:360px){header .logo{width:220px}}
