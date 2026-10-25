@@ -3,10 +3,26 @@ function workshopCatalogSchedule(w,i){
  const dates=w.calendarDates||[];
  if(!dates.length)return '<div class="workshop-card-schedule"><p>'+(i?'Datas e horários a confirmar':'Fechas y horarios por confirmar')+'</p></div>';
  const formatter=new Intl.DateTimeFormat(i?'pt-BR':'es-ES',{weekday:'short',day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
- const startsOnly=w.id==='garcia-lorca'||w.id==='cien-anos-de-soledad';
- return '<div class="workshop-card-schedule"><h4>'+(i?'Datas e horários':'Fechas y horarios')+'</h4><ul>'+[...dates].sort((a,b)=>a.date.localeCompare(b.date)).map(d=>'<li>'+(d.group?'<span class="workshop-schedule-group">'+(startsOnly?(i?'Início · ':'Inicio · '):'')+'Grupo '+d.group+'</span>':'')+'<time datetime="'+d.date+'">'+escapeHtml(formatter.format(new Date(d.date+'T12:00:00Z')))+'</time><span>'+d.spain+' '+(i?'Espanha peninsular':'España peninsular')+'<br>'+d.brazil+' '+(i?'Brasília':'Brasilia')+'</span></li>').join('')+'</ul>'+(startsOnly?'<p class="workshop-schedule-note">'+(i?'As demais datas serão confirmadas.':'Las demás fechas se confirmarán.')+'</p>':'')+'</div>';
+ const groups=[...new Set(dates.map(d=>d.group||0))].sort((a,b)=>a-b);
+ return '<div class="workshop-card-schedule"><h4>'+(i?'Datas e horários':'Fechas y horarios')+'</h4><ul>'+groups.map(group=>{
+ const entries=dates.filter(d=>(d.group||0)===group).sort((a,b)=>a.date.localeCompare(b.date)),first=entries[0];
+ return '<li>'+(group?'<span class="workshop-schedule-group">Grupo '+group+'</span>':'')+entries.map(d=>'<time datetime="'+d.date+'">'+escapeHtml(formatter.format(new Date(d.date+'T12:00:00Z')))+'</time>').join('')+'<span>'+first.spain+' '+(i?'Espanha peninsular':'España peninsular')+'<br>'+first.brazil+' '+(i?'Brasília':'Brasilia')+'</span>'+(w.weekly?'<p class="workshop-schedule-note">'+(group===1?(i?'Todas as quartas-feiras até terminar o livro.':'Todos los miércoles hasta terminar el libro.'):(i?'Todos os sábados até terminar o livro.':'Todos los sábados hasta terminar el libro.'))+'</p>':'')+'</li>';
+ }).join('')+'</ul>'+(w.weekly?'<p class="workshop-schedule-note">'+(i?'O horário de Brasília acompanha a mudança de horário da Espanha.':'El horario de Brasilia se ajusta al cambio de hora de España.')+'</p>':'')+'</div>';
 }
-
+function workshopCalendarEvents(){
+ const now=new Date(),until=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth()+13,0));
+ return workshops.flatMap(w=>(w.calendarDates||[]).flatMap(start=>{
+  const dates=[start];
+  if(w.weekly){const date=new Date(start.date+'T12:00:00Z');date.setUTCDate(date.getUTCDate()+7);for(;date<=until;date.setUTCDate(date.getUTCDate()+7)){
+   const day=date.toISOString().slice(0,10),[hour,minute]=start.spain.split(':').map(Number),guess=new Date(day+'T'+start.spain+':00Z');
+   const madridHour=Number(new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Madrid',hour:'2-digit',hourCycle:'h23'}).format(guess));
+   const actual=new Date(guess.getTime()-(madridHour-hour)*3600000);
+   const brazil=new Intl.DateTimeFormat('en-GB',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(actual);
+   dates.push({...start,date:day,brazil});
+  }}
+  return dates.map(date=>({...date,w}));
+ }));
+}
 function workshopCatalog(i){
  return '<nav class="workshop-section-nav" aria-label="'+(i?'Seções das oficinas':'Secciones de talleres')+'"><a href="#catalogo-talleres">'+(i?'Todas as oficinas':'Todos los talleres')+'</a><a href="#calendario-talleres">'+(i?'Ver calendário ↓':'Ver calendario ↓')+'</a></nav><section id="catalogo-talleres" class="workshop-catalog-section" aria-labelledby="workshop-catalog-title"><p class="eyebrow">'+(i?'LEIA, DESCUBRA E COMPARTILHE':'LEE, DESCUBRE Y COMPARTE')+'</p><h2 id="workshop-catalog-title">'+(i?'Todas as oficinas':'Todos los talleres')+'</h2><p>'+(i?'Conheça as propostas e escolha sua próxima leitura. Clique em um cartaz para ver os detalhes.':'Descubre las propuestas y elige tu próxima lectura. Pulsa un cartel para ver los detalles.')+'</p><div class="workshop-poster-grid">'+workshops.map(w=>{
  const href='/taller/'+w.id+(i?'?lang=pt':'');
@@ -18,7 +34,7 @@ function workshopCatalog(i){
 let calendarMonth=null;
 function renderWorkshopCalendar(i){
  const list=document.getElementById('workshop-list');list.classList.add('calendar-view');
- const events=workshops.flatMap(w=>(w.calendarDates||[]).map(date=>({...date,w})));
+ const events=workshopCalendarEvents();
  const free=workshops.find(w=>w.id==='cien-anos-de-soledad');
  if(free?.event)events.push({date:'2026-10-31',spain:'15:00',brazil:'11:00',w:free,free:true});
  const months=[...new Set(events.map(e=>e.date.slice(0,7)))].sort();
