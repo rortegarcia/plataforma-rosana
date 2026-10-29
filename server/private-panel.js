@@ -1,3 +1,4 @@
+import {marketingSummary,marketingCsv} from './marketing.js';
 import { visitorAnalytics } from './visitor-analytics.js';
 // No customer data or credentials are returned by the public configuration route.
 const products = {
@@ -92,6 +93,7 @@ export async function privateRoute(request,env){
     if(!reg||!await workshopRegistration(env,reg.topic,receipt)||!products[reg.topic])return response({error:'invalid'},403);
     return response({product:reg.topic,title:products[reg.topic].title});
   }
+  if(path==='/api/owner/marketing.csv'){if(!await isOwner(request,env))return response({error:'private'},403);if(request.method!=='GET')return response({error:'method'},405);return marketingCsv(env);}
   if(path==='/api/owner/summary'){
     if(!await isOwner(request,env))return response({error:'private'},403);
     if(request.method!=='GET')return response({error:'method'},405);
@@ -100,7 +102,7 @@ export async function privateRoute(request,env){
     const payments=await q(env,"SELECT p.product,p.title,COUNT(*) total,SUM(pay.amount_cents) gross_cents FROM payments pay JOIN paypal_orders o ON o.id=pay.order_id JOIN purchases p ON p.id=o.purchase_id WHERE pay.status IN ('COMPLETED','REFUNDED','PARTIALLY_REFUNDED') GROUP BY p.product,p.title").all();
     const refunds=await q(env,'SELECT COALESCE(SUM(amount_cents),0) cents,COUNT(*) total FROM refunds').first();
     const recent=await q(env,"SELECT r.id,r.kind,r.title,r.customer_name,r.customer_email,r.created_at,EXISTS(SELECT 1 FROM purchases p JOIN paypal_orders o ON o.purchase_id=p.id JOIN payments pay ON pay.order_id=o.id WHERE p.registration_id=r.id AND pay.status='COMPLETED') paid FROM registrations r ORDER BY r.created_at DESC LIMIT 100").all();
-    return response({traffic:await visitorAnalytics(env),registrations:registrations.results,payments:payments.results,refunds,recent:recent.results,automaticPayments:ready(env),note:'Solo se incluyen solicitudes registradas desde la activación y pagos del nuevo checkout. PayPal.me y pagos anteriores no se importan.'});
+    return response({marketing:await marketingSummary(env),traffic:await visitorAnalytics(env),registrations:registrations.results,payments:payments.results,refunds,recent:recent.results,automaticPayments:ready(env),note:'Solo se incluyen solicitudes registradas desde la activación y pagos del nuevo checkout. PayPal.me y pagos anteriores no se importan.'});
   }
   if(request.method!=='POST')return response({error:'method'},405);
   if(path==='/api/paypal/webhook')return webhook(request,env);

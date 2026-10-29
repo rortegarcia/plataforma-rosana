@@ -44,3 +44,5 @@ for(const id of ['es','pt'])document.getElementById(id)?.addEventListener('click
 refreshBrand();
 
 const paymentLinksScript=document.createElement('script');paymentLinksScript.src='/payments-links.js';paymentLinksScript.defer=true;document.head.append(paymentLinksScript);
+
+const offerScript=document.createElement('script');offerScript.src='/oferta-testes.js';offerScript.defer=true;document.head.append(offerScript);
