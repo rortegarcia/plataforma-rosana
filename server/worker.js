@@ -2,9 +2,9 @@ import {recordMarketingConsent,marketingConsentText} from './marketing.js';
 import {downloadPortugueseTest,portugueseTestTopic} from './portuguese-tests.js';
 import {recordRegistration} from './private-panel.js';
 const recipient='rortegarcia@gmail.com';
-const titles={'cuentos-garcia-marquez':'Taller de cuentos de Gabriel García Márquez','cuentos-clarice-lispector':'Taller de cuentos de Clarice Lispector','garcia-lorca':'Taller García Lorca','cien-anos-de-soledad':'Taller Cien años de soledad'};
-const workshopPrices={'cuentos-garcia-marquez':30,'cuentos-clarice-lispector':30,'garcia-lorca':44,'cien-anos-de-soledad':26};
-const workshopSessions={'cuentos-garcia-marquez':2,'cuentos-clarice-lispector':2,'garcia-lorca':3,'cien-anos-de-soledad':2};
+const titles={"memorias-postumas":"Taller Memórias Póstumas de Brás Cubas","fernando-pessoa":"Taller Fernando Pessoa y sus heterónimos","carlos-drummond-de-andrade":"Taller de Carlos Drummond de Andrade","miguel-hernandez":"Taller Miguel Hernández",'cuentos-garcia-marquez':'Taller de cuentos de Gabriel García Márquez','cuentos-clarice-lispector':'Taller de cuentos de Clarice Lispector','garcia-lorca':'Taller García Lorca','cien-anos-de-soledad':'Taller Cien años de soledad'};
+const workshopPrices={"memorias-postumas":44,"fernando-pessoa":30,"carlos-drummond-de-andrade":30,"miguel-hernandez":30,'cuentos-garcia-marquez':30,'cuentos-clarice-lispector':30,'garcia-lorca':44,'cien-anos-de-soledad':26};
+const workshopSessions={"memorias-postumas":3,"fernando-pessoa":2,"carlos-drummond-de-andrade":2,"miguel-hernandez":2,'cuentos-garcia-marquez':2,'cuentos-clarice-lispector':2,'garcia-lorca':3,'cien-anos-de-soledad':2};
 const json=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
 const b64=bytes=>btoa(String.fromCharCode(...new Uint8Array(bytes))).replaceAll('+','-').replaceAll('/','_').replaceAll('=','');
 async function hmac(key,data){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(key),{name:'HMAC',hash:'SHA-256'},false,['sign']);return b64(await crypto.subtle.sign('HMAC',k,new TextEncoder().encode(data)));}

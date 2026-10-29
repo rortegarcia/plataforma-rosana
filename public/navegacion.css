@@ -170,3 +170,5 @@ a[data-t="bookLearn"]:hover,a[data-t="bookGet"]:hover{color:#a40712}
 @media(max-width:600px){.workshop-filters{grid-template-columns:minmax(0,1fr);padding:16px;gap:12px}.workshop-filters select{font-size:16px}}
 
 .portuguese-test-promo{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:35px;border-top:1px solid #ddd;border-bottom:1px solid #ddd;background:#f7f8f3}.portuguese-test-promo h2{font-size:clamp(30px,4vw,44px)}.portuguese-test-promo p{max-width:800px}.portuguese-test-promo [data-t=levelOffer]{color:#176b45;font-weight:700;font-size:14px}@media(max-width:720px){.portuguese-test-promo{grid-template-columns:1fr;gap:18px}.portuguese-test-promo>.button{justify-self:start}}
+
+.event-registration-notice{padding:20px;border-left:5px solid #b54627;background:#fff1dc;font-weight:700;color:#7e2f16}.event-registration-notice a{color:#7e2f16;text-decoration:underline}

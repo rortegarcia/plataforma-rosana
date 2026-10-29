@@ -2,6 +2,10 @@ import {marketingSummary,marketingCsv} from './marketing.js';
 import { visitorAnalytics } from './visitor-analytics.js';
 // No customer data or credentials are returned by the public configuration route.
 const products = {
+ "memorias-postumas":{title:"Taller Memórias Póstumas de Brás Cubas",cents:4400},
+ "fernando-pessoa":{title:"Taller Fernando Pessoa y sus heterónimos",cents:3000},
+ "carlos-drummond-de-andrade":{title:"Taller de Carlos Drummond de Andrade",cents:3000},
+ "miguel-hernandez":{title:"Taller Miguel Hernández",cents:3000},
   'book-student': {title:'Libro para alumnos', cents:1500},
   'book-teacher': {title:'Libro y tutoría para profesores', cents:2000},
   'cuentos-clarice-lispector': {title:'Taller de Clarice Lispector', cents:3000},
