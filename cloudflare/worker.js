@@ -1,6 +1,6 @@
 import { apiRoute } from '../server/worker.js';
 import { privateRoute } from '../server/private-panel.js';
-const routes = new Set(['/api/inquiries', '/api/registrations', '/api/registration-status']);
+const routes = new Set(['/api/inquiries', '/api/registrations', '/api/registration-status', '/api/portuguese-tests/download']);
 export default {
  async fetch(request, env) {
   const path=new URL(request.url).pathname;
