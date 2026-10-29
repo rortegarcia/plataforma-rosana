@@ -58,7 +58,7 @@ function renderWorkshopCalendar(i){
  const list=document.getElementById('workshop-list');list.classList.add('calendar-view');
  const allEvents=workshopCalendarEvents();const events=allEvents.filter(e=>workshopMatchesFilters(e.w));
  const free=workshops.find(w=>w.id==='cien-anos-de-soledad');
- if(free?.event&&workshopMatchesFilters(free))events.push({date:'2026-10-31',spain:'15:00',brazil:'11:00',w:free,free:true});
+ if(free?.event&&workshopMatchesFilters(free))events.push({date:'2026-10-31',spain:'16:15',brazil:'12:15',w:free,free:true});
  const months=[...new Set(allEvents.map(e=>e.date.slice(0,7)))].sort();
  const today=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
  if(!calendarMonth||!months.includes(calendarMonth))calendarMonth=months.find(m=>m>=today.slice(0,7))||months.at(-1);
