@@ -2,6 +2,7 @@ import {marketingSummary,marketingCsv} from './marketing.js';
 import { visitorAnalytics } from './visitor-analytics.js';
 // No customer data or credentials are returned by the public configuration route.
 const products = {
+ 'fernando-sabino':{title:'Taller Fernando Sabino',cents:3000},
  "memorias-postumas":{title:"Taller Memórias Póstumas de Brás Cubas",cents:4400},
  "fernando-pessoa":{title:"Taller Fernando Pessoa y sus heterónimos",cents:3000},
  "carlos-drummond-de-andrade":{title:"Taller de Carlos Drummond de Andrade",cents:3000},
