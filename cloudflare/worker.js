@@ -1,7 +1,7 @@
 import {unsubscribeMarketing} from '../server/marketing.js';
 import { apiRoute } from '../server/worker.js';
 import { privateRoute } from '../server/private-panel.js';
-const routes = new Set(['/api/inquiries', '/api/registrations', '/api/registration-status', '/api/portuguese-tests/download']);
+const routes = new Set(['/api/inquiries', '/api/registrations', '/api/registration-status', '/api/portuguese-tests/download', '/api/portuguese-tests/submit']);
 export default {
  async fetch(request, env) {
   const path=new URL(request.url).pathname;if(path==='/api/marketing/unsubscribe')return unsubscribeMarketing(request,env);

@@ -108,3 +108,5 @@ for(let attempt=0;attempt<12;attempt++){await new Promise(r=>setTimeout(r,2500))
 submissionState='pending';if(paymentWindow&&!paymentWindow.closed)paymentWindow.close();}catch{if(paymentWindow&&!paymentWindow.closed)paymentWindow.close();submissionState=savedReceipt?'pending':'error';}finally{updateSubmission();}});document.querySelector('#workshop-form [name=name]').addEventListener('input',event=>event.target.setCustomValidity(''));}
 if(workshop&&!workshop.soldOut){try{savedReceipt=sessionStorage.getItem('workshop-receipt-'+workshop.id);if(savedReceipt){submissionState='pending';document.querySelectorAll('#workshop-form input').forEach(input=>input.disabled=true);}}catch{}}
 setLanguage(new URLSearchParams(location.search).get('lang')==='pt'?'pt':'es');
+
+if(workshop?.upcoming){const script=document.createElement('script');script.src='/workshop-notice.js';document.head.append(script);}

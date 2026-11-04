@@ -45,4 +45,4 @@ refreshBrand();
 
 const paymentLinksScript=document.createElement('script');paymentLinksScript.src='/payments-links.js';paymentLinksScript.defer=true;document.head.append(paymentLinksScript);
 
-const offerScript=document.createElement('script');offerScript.src='/oferta-testes.js';offerScript.defer=true;document.head.append(offerScript);
+const offerScript=document.createElement('script');offerScript.src='/oferta-testes.js?v=online-20261104';offerScript.defer=true;document.head.append(offerScript);
